@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auspuff Treffer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes water-splash {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+          filter: blur(0px);
+        }
+        20% { /* Quick burst to larger size */
+          transform: scale(2.2);
+          opacity: 0.9;
+          filter: blur(0px);
+        }
+        50% { /* Start to dissipate and blur */
+          transform: scale(1.5);
+          opacity: 0.5;
+          filter: blur(3px);
+        }
+        100% { /* Fade out completely with blur */
+          transform: scale(1.0);
+          opacity: 0;
+          filter: blur(5px);
+        }
+      }
+      .animate-water-splash {
+        animation: water-splash 300ms ease-out forwards; /* Duration matched to SHOT_VISUAL_DURATION_MS */
+      }
+
+      /* Jizz Kaboom effect on cars */
+      @keyframes jizz-kaboom-appear {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 0; filter: blur(0px); }
+        50% { transform: translate(-50%, -50%) scale(1.8); opacity: 1; filter: blur(2px); } /* Explode out */
+        100% { transform: translate(-50%, -50%) scale(1.0); opacity: 0.9; filter: blur(1px); } /* Settle */
+      }
+      @keyframes jizz-kaboom-fade {
+        0% { opacity: 0.9; filter: blur(1px); transform: translate(-50%, -50%) scale(1.0); }
+        100% { opacity: 0; filter: blur(5px); transform: translate(-50%, -50%) scale(0.8); } /* Dissipate and shrink */
+      }
+
+      /* New: Car hit effects */
+      @keyframes car-hit-white {
+        0% { background-color: var(--original-car-color); } /* Use a CSS variable for original color */
+        50% { background-color: rgba(255, 255, 255, 0.9); } /* Turn white */
+        100% { background-color: rgba(255, 255, 255, 0.9); }
+      }
+      .animate-car-hit-white {
+        animation: car-hit-white 200ms ease-out forwards;
+      }
+
+      @keyframes explosion-burst {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; filter: blur(0px); }
+        30% { transform: translate(-50%, -50%) scale(2.5); opacity: 1; filter: blur(2px); }
+        100% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; filter: blur(10px); }
+      }
+      .animate-explosion-burst {
+        animation: explosion-burst 500ms ease-out forwards;
+      }
+
+      @keyframes car-explode-jump {
+        0% {
+          transform: translate(0, 0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        30% { /* Initial upward/sideways thrust */
+          transform: translate(calc(var(--jump-direction-x) * 50px), -100px) rotate(calc(var(--jump-direction-x) * 20deg)) scale(0.9);
+          opacity: 1;
+        }
+        100% { /* Fly off-screen, rotate more, shrink, and fade */
+          transform: translate(calc(var(--jump-direction-x) * 300px), -600px) rotate(calc(var(--jump-direction-x) * 360deg)) scale(0.1);
+          opacity: 0;
+        }
+      }
+      .animate-car-explode-jump {
+        animation: car-explode-jump var(--explosion-duration) ease-in-out forwards;
+      }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
